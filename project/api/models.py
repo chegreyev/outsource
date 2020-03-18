@@ -2,18 +2,18 @@ from django.db import models
 
 # Create your models here.
 class Employees(models.Model):
-    telegram_id = models.IntegerField()
+    telegram_id = models.IntegerField(primary_key=True)
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
 
-    iin = models.IntegerField(max_length=12)
-    udv_number = models.IntegerField(max_length=8)
+    iin = models.IntegerField()
+    udv_number = models.IntegerField()
     udv_place = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
 
-    bank_card = models.IntegerField(max_length=12)
+    bank_card = models.IntegerField()
     iban = models.CharField(max_length=20)
 
     contact_phone = models.CharField(max_length=20)
