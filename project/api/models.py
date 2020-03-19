@@ -8,8 +8,9 @@ class Employees(models.Model):
     last_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
 
-    iin = models.IntegerField()
+    iin = models.IntegerField(unique=True)
     udv_number = models.IntegerField()
+    udv_date = models.DateField()
     udv_place = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
 
