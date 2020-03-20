@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class Employees(models.Model):
     telegram_id = models.IntegerField(primary_key=True)
 
@@ -8,14 +8,14 @@ class Employees(models.Model):
     last_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
 
-    iin = models.IntegerField(unique=True)
-    udv_number = models.IntegerField()
+    iin = models.CharField(unique=True, max_length=12)
+    udv_number = models.CharField(max_length=30)
     udv_date = models.DateField()
-    udv_place = models.CharField(max_length=100)
+    udv_place = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
 
     bank_card = models.IntegerField()
-    iban = models.CharField(max_length=20)
+    iban = models.CharField(max_length=255)
 
     contact_phone = models.CharField(max_length=20)
     email_address = models.CharField(max_length=100)
