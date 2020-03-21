@@ -12,3 +12,6 @@ hr_replykeyboard_vopros_btn1 = telebot.types.KeyboardButton('Предложит�
 hr_replykeyboard_vopros_btn2 = telebot.types.KeyboardButton('Задать точный вопрос')
 hr_replykeyboard_vopros.add(hr_replykeyboard_vopros_btn1 , hr_replykeyboard_vopros_btn2)
 
+delete_employee_markup = telebot.types.InlineKeyboardMarkup()
+delete_btn1 = telebot.types.InlineKeyboardButton(text = "Удалить сотрудника" , callback_data='delete')
+delete_employee_markup.add(delete_btn1)
