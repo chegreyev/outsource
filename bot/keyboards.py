@@ -20,6 +20,7 @@ register_employee_correct = telebot.types.InlineKeyboardButton(text='Подтв�
 register_employee_incorrect = telebot.types.InlineKeyboardButton(text='Изменить данные',callback_data='incorrect_employee_data')
 register_employee_markup.row(register_employee_correct, register_employee_incorrect)
 
+
 change_register_employee = telebot.types.InlineKeyboardMarkup()
 
 first_name = telebot.types.InlineKeyboardButton(text='Имя', callback_data='change_first_name')
@@ -34,6 +35,9 @@ bank_card = telebot.types.InlineKeyboardButton(text='Банк карта', callb
 iban = telebot.types.InlineKeyboardButton(text='IBAN', callback_data='change_iban')
 contact_phone = telebot.types.InlineKeyboardButton(text='Номер телефона', callback_data='change_contact_phone')
 email_address = telebot.types.InlineKeyboardButton(text='email', callback_data='change_email_address')
+confirm_changed_data = telebot.types.InlineKeyboardButton('Подтвердить' , callback_data='correct_employee_data')
+#TODO : Нужно добавть функционал для кнопки назад
+# nazad = telebot.types.InlineKeyboardButton(text='НАЗАД' , callback_data='back_change_employee') # Нужно добавить функционал
 
 change_register_employee.row(first_name , last_name , father_name)
 change_register_employee.row(iin , address , email_address)
@@ -43,3 +47,5 @@ change_register_employee.row(udv_place)
 change_register_employee.row(bank_card)
 change_register_employee.row(iban)
 change_register_employee.row(contact_phone)
+change_register_employee.row(confirm_changed_data)
+# change_register_employee.row(nazad)
