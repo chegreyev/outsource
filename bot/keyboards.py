@@ -1,15 +1,15 @@
 import telebot
 
-hr_replykeyboard = telebot.types.ReplyKeyboardMarkup()
-hr_replykeyboard_btn1 = telebot.types.KeyboardButton('Получить деньги')
-hr_replykeyboard_btn2 = telebot.types.KeyboardButton('Задать вопрос')
-hr_replykeyboard_btn3 = telebot.types.KeyboardButton('База участников')
-hr_replykeyboard.add(hr_replykeyboard_btn1, hr_replykeyboard_btn2, hr_replykeyboard_btn3)
-
-hr_replykeyboard_vopros = telebot.types.ReplyKeyboardMarkup()
-hr_replykeyboard_vopros_btn1 = telebot.types.KeyboardButton('Предложить 2 варианта ответа')
-hr_replykeyboard_vopros_btn2 = telebot.types.KeyboardButton('Задать точный вопрос')
-hr_replykeyboard_vopros.add(hr_replykeyboard_vopros_btn1, hr_replykeyboard_vopros_btn2)
+# hr_replykeyboard = telebot.types.ReplyKeyboardMarkup()
+# hr_replykeyboard_btn1 = telebot.types.KeyboardButton('Получить деньги')
+# hr_replykeyboard_btn2 = telebot.types.KeyboardButton('Задать вопрос')
+# hr_replykeyboard_btn3 = telebot.types.KeyboardButton('База участников')
+# hr_replykeyboard.add(hr_replykeyboard_btn1, hr_replykeyboard_btn2, hr_replykeyboard_btn3)
+#
+# hr_replykeyboard_vopros = telebot.types.ReplyKeyboardMarkup()
+# hr_replykeyboard_vopros_btn1 = telebot.types.KeyboardButton('Предложить 2 варианта ответа')
+# hr_replykeyboard_vopros_btn2 = telebot.types.KeyboardButton('Задать точный вопрос')
+# hr_replykeyboard_vopros.add(hr_replykeyboard_vopros_btn1, hr_replykeyboard_vopros_btn2)
 
 delete_employee_markup = telebot.types.InlineKeyboardMarkup()
 delete_btn1 = telebot.types.InlineKeyboardButton(text="Удалить сотрудника", callback_data='delete')
@@ -49,3 +49,49 @@ change_register_employee.row(iban)
 change_register_employee.row(contact_phone)
 change_register_employee.row(confirm_changed_data)
 # change_register_employee.row(nazad)
+
+
+# Keyboards for start message
+# HR branch
+hr_start_message__markup = telebot.types.InlineKeyboardMarkup()
+hr_start_message__take_money = telebot.types.InlineKeyboardButton(text='Получить деньги' , callback_data='hr_start_message__take_money')
+hr_start_message__vopros = telebot.types.InlineKeyboardButton(text='Задать вопрос' , callback_data='hr_start_message__vopros')
+hr_start_message__database = telebot.types.InlineKeyboardButton(text='База участников' , callback_data='hr_start_message__database')
+hr_start_message__markup.add(hr_start_message__take_money , hr_start_message__vopros , hr_start_message__database)
+
+
+# Simple employee branch
+employee_start_message__markup = telebot.types.InlineKeyboardMarkup()
+employee_start_message__take_money = telebot.types.InlineKeyboardButton(text='Получить деньги' , callback_data='employee_start_message__take_money')
+employee_start_message__vopros = telebot.types.InlineKeyboardButton(text='Задать вопрос' , callback_data='employee_start_message__vopros')
+employee_start_message__markup.add(employee_start_message__take_money , employee_start_message__vopros)
+
+
+# New employee branch
+new_employee_start_message__markup = telebot.types.InlineKeyboardMarkup()
+new_employee_start_message__register = telebot.types.InlineKeyboardButton(text='Новый сотрудник' , callback_data='new_employee_start_message__register')
+new_employee_start_message__markup.add(new_employee_start_message__register)
+
+# HR Vopros
+hr_main_vopros_markup = telebot.types.InlineKeyboardMarkup()
+hr_main_vopros_markup__single = telebot.types.InlineKeyboardButton(text='Задать точный вопрос' , callback_data='hr_main_vopros_markup__single')
+hr_main_vopros_markup__double = telebot.types.InlineKeyboardButton(text='Предложить 2 варианта ответа' , callback_data='hr_main_vopros_markup__double')
+hr_main_vopros_markup.row(hr_main_vopros_markup__single , hr_main_vopros_markup__double)
+
+# Admin take_money
+admin_take_money__markup = telebot.types.InlineKeyboardMarkup()
+admin_take_money__markup__accept = telebot.types.InlineKeyboardButton(text='Удтвердить' , callback_data='admin_take_money__markup__accept')
+admin_take_money__markup__decline = telebot.types.InlineKeyboardButton(text='Отклонить' , callback_data='admin_take_money__markup__decline')
+admin_take_money__markup.row(admin_take_money__markup__accept,admin_take_money__markup__decline)
+
+# Admin single_vopros
+admin_single_vopros__markup = telebot.types.InlineKeyboardMarkup()
+admin_single_vopros__markup__answer = telebot.types.InlineKeyboardButton(text='Ответить' , callback_data='admin_single_vopros__markup__answer')
+admin_single_vopros__markup__incorrect = telebot.types.InlineKeyboardButton(text='Некорректный вопрос' , callback_data='admin_single_vopros__markup__incorrect')
+admin_single_vopros__markup.row(admin_single_vopros__markup__answer , admin_single_vopros__markup__incorrect)
+
+# Admin double vopros
+admin_double_vopros__markup = telebot.types.InlineKeyboardMarkup()
+admin_double_vopros__markup__first = telebot.types.InlineKeyboardButton(text='1' , callback_data='admin_double_vopros__markup__first')
+admin_double_vopros__markup__double = telebot.types.InlineKeyboardButton(text='2' , callback_data='admin_double_vopros__markup__double')
+admin_double_vopros__markup.row(admin_double_vopros__markup__first , admin_double_vopros__markup__double)

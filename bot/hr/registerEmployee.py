@@ -4,15 +4,14 @@
 '''
 
 from keyboards import register_employee_markup, change_register_employee
-
 from bot import bot, user
 
 
-@bot.message_handler(commands=['new_employee'])
-def registerNewEmployee(m):
-    bot.send_message(m.chat.id,
+@bot.callback_query_handler(lambda callback: callback.data == 'new_employee_start_message__register')
+def registerNewEmployee(callback):
+    bot.send_message(callback.message.chat.id,
                      'Мы приступаем к регистрации/введении нового сотрудника в базу данных\nВведите пожалуйста как вас зовут (ФИО)')
-    bot.register_next_step_handler(m, registerName)
+    bot.register_next_step_handler(callback.message, registerName)
 
 
 def registerName(m):
@@ -103,6 +102,13 @@ def registerEmail(m):
 @bot.callback_query_handler(lambda callback: callback.data == 'correct_employee_data')
 def confirm_new_employee(callback):
     user.registerEmployee()
+    hr_emp = user.get_hr()
+    # Sends HR employee the "new_employee" alert
+    bot.send_message(
+        hr_emp,
+        f'В боте зарегестрировался новый сотрудник\n{user.user_to_string_tg(user)}'
+    )
+    # Sends the current user info that he is added to database
     bot.send_message(
         callback.message.chat.id,
         text=f'Сотрудник {user.first_name} был успешно добавлен.'
@@ -111,6 +117,11 @@ def confirm_new_employee(callback):
 
 @bot.callback_query_handler(lambda callback: callback.data == 'incorrect_employee_data')
 def change_new_employee_data(callback):
+    '''
+        If the user wants to change his information
+        he gets the message of his info with InlineButtons with labels of what to change
+    :param callback:
+    '''
     bot.edit_message_reply_markup(
         message_id=callback.message.message_id,
         chat_id=callback.message.chat.id,
