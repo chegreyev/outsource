@@ -3,9 +3,8 @@ from user import User
 
 from bot import bot
 
-
-@bot.message_handler(commands=['employees'])
-def bd_employees(msg):
+@bot.callback_query_handler(lambda callback: callback.data == 'hr_start_message__database')
+def bd_employees(callback):
     users = User().get_all()
     for usr in users:
 
@@ -13,7 +12,7 @@ def bd_employees(msg):
             continue
 
         bot.send_message(
-            msg.chat.id,
+            callback.message.chat.id,
             User().user_to_string(usr),
             reply_markup=delete_employee_markup
         )
@@ -21,7 +20,7 @@ def bd_employees(msg):
 
 @bot.callback_query_handler(lambda clb: clb.data == 'delete')
 def delete_employee(clb):
-    employee_id = clb.message.text[18:27]  # the telegram_id of the user
+    employee_id = clb.message.text[18:27]
     User().deleteEmployee(employee_id)
 
     bot.delete_message(

@@ -19,20 +19,20 @@
         -contact_phone
         -email_address
 '''
-
 from keyboards import change_register_employee
-
 from bot import bot, user
 
 
 @bot.callback_query_handler(lambda callback: callback.data == 'change_first_name')
 def change_new_employee_first_name(callback):
-    bot.send_message(callback.message.chat.id,
-                     'Введите пожалуйста ваше Имя:'
-                     )
-    bot.register_next_step_handler(callback.message,
-                                   registerChangedFirstName
-                                   )
+    bot.send_message(
+        callback.message.chat.id,
+        'Введите пожалуйста ваше Имя:'
+    )
+    bot.register_next_step_handler(
+        callback.message,
+        registerChangedFirstName
+    )
 
 
 def sendUser(message):
@@ -45,9 +45,10 @@ def sendUser(message):
 
 def registerChangedFirstName(message):
     user.first_name = message.text
-    bot.send_message(message.chat.id,
-                     f'Вы успешно поменяли Имя на {user.first_name}'
-                     )
+    bot.send_message(
+        message.chat.id,
+        f'Вы успешно поменяли Имя на {user.first_name}'
+    )
     sendUser(message)
 
 

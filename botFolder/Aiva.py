@@ -1,5 +1,5 @@
-from telebot import TeleBot
-
+from bot import bot
+from keyboards import *
 from user import User
 from settings import token
 from keyboards import *
@@ -35,7 +35,7 @@ def start(message):
             'Поздравляю, вы успешно авторизовались!',
             reply_markup=employee_start_message__markup
         )
-    else :
+    else:
         bot.send_message(
             message.from_user.id,
             'Здравствуйте, я Aiva Bot.\nВаш помощник в компании\n-Предоставление услуг\n-Консультирование\n-Управление'
@@ -45,11 +45,6 @@ def start(message):
             'Вы не зарегестрированы в системе\nПожалуйста зарегестрируйтесь.',
             reply_markup=new_employee_start_message__markup
         )
-    # if User().check_user(message.from_user.id) == 'none':
-    #     bot.send_message(message.chat.id,
-    #                      text='Здравствуйте, я Aiva Bot.\nВаш помощник в компании\n-Предоставление услуг\n-Консультирование\n-Управление')
-    # elif User().check_user(message.from_user.id) == 'admin':
-    #     bot.send_message(message.chat.id, text='Вы успешно зарегестрировались')
 
 
 bot.polling(none_stop=True)

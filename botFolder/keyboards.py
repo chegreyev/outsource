@@ -1,26 +1,17 @@
 import telebot
 
-# hr_replykeyboard = telebot.types.ReplyKeyboardMarkup()
-# hr_replykeyboard_btn1 = telebot.types.KeyboardButton('Получить деньги')
-# hr_replykeyboard_btn2 = telebot.types.KeyboardButton('Задать вопрос')
-# hr_replykeyboard_btn3 = telebot.types.KeyboardButton('База участников')
-# hr_replykeyboard.add(hr_replykeyboard_btn1, hr_replykeyboard_btn2, hr_replykeyboard_btn3)
-#
-# hr_replykeyboard_vopros = telebot.types.ReplyKeyboardMarkup()
-# hr_replykeyboard_vopros_btn1 = telebot.types.KeyboardButton('Предложить 2 варианта ответа')
-# hr_replykeyboard_vopros_btn2 = telebot.types.KeyboardButton('Задать точный вопрос')
-# hr_replykeyboard_vopros.add(hr_replykeyboard_vopros_btn1, hr_replykeyboard_vopros_btn2)
-
+# Delete employee InlineKeyboard
 delete_employee_markup = telebot.types.InlineKeyboardMarkup()
 delete_btn1 = telebot.types.InlineKeyboardButton(text="Удалить сотрудника", callback_data='delete')
 delete_employee_markup.add(delete_btn1)
 
+# Register employee InlineKeyboard
 register_employee_markup = telebot.types.InlineKeyboardMarkup()
 register_employee_correct = telebot.types.InlineKeyboardButton(text='Подтвердить',callback_data='correct_employee_data')
 register_employee_incorrect = telebot.types.InlineKeyboardButton(text='Изменить данные',callback_data='incorrect_employee_data')
 register_employee_markup.row(register_employee_correct, register_employee_incorrect)
 
-
+# Change registered employee data
 change_register_employee = telebot.types.InlineKeyboardMarkup()
 
 first_name = telebot.types.InlineKeyboardButton(text='Имя', callback_data='change_first_name')
@@ -51,7 +42,7 @@ change_register_employee.row(confirm_changed_data)
 # change_register_employee.row(nazad)
 
 
-# Keyboards for start message
+# Initial keyboards for start message
 # HR branch
 hr_start_message__markup = telebot.types.InlineKeyboardMarkup()
 hr_start_message__take_money = telebot.types.InlineKeyboardButton(text='Получить деньги' , callback_data='hr_start_message__take_money')
@@ -77,6 +68,12 @@ hr_main_vopros_markup = telebot.types.InlineKeyboardMarkup()
 hr_main_vopros_markup__single = telebot.types.InlineKeyboardButton(text='Задать точный вопрос' , callback_data='hr_main_vopros_markup__single')
 hr_main_vopros_markup__double = telebot.types.InlineKeyboardButton(text='Предложить 2 варианта ответа' , callback_data='hr_main_vopros_markup__double')
 hr_main_vopros_markup.row(hr_main_vopros_markup__single , hr_main_vopros_markup__double)
+
+# employee Vopros
+employee_main_vopros_markup = telebot.types.InlineKeyboardMarkup()
+employee_main_vopros_markup__single = telebot.types.InlineKeyboardButton(text='Задать точный вопрос' , callback_data='employee_main_vopros_markup__single')
+employee_main_vopros_markup__double = telebot.types.InlineKeyboardButton(text='Предложить 2 варианта ответа' , callback_data='employee_main_vopros_markup__double')
+employee_main_vopros_markup.row(employee_main_vopros_markup__single , employee_main_vopros_markup__double)
 
 # Admin take_money
 admin_take_money__markup = telebot.types.InlineKeyboardMarkup()

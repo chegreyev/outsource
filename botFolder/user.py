@@ -3,6 +3,7 @@ from settings import db_url as url
 
 
 class User():
+    # Default data
     telegram_id = 1
     first_name = 'ИМЯ'
     last_name = "ФАМИЛИЯ"
@@ -39,13 +40,26 @@ class User():
         }
 
     def registerEmployee(self):
+        '''
+            Sends to database new employee data , registered from botFolder
+            If the employee created , server sends HTTP_201
+        '''
         self.registerEmployeeData()
         post(url, self.data)
 
     def deleteEmployee(self, user_id):
+        '''
+            Sends to database delete responce HTTP_204
+        '''
         delete(f'http://127.0.0.1:8000/api/employees/{user_id}/')
 
     def check_user(self, telegram_id):
+        '''
+            Takes from database all users and checks by telegram_id
+        :param telegram_id:
+        :return: the role of employee ["admin" , "hr" , "employee" , "none"]
+        '''
+
         users = get(url).json()
         for user in users:
             if user['telegram_id'] == telegram_id and user['is_admin'] == True:
@@ -57,6 +71,10 @@ class User():
         return 'none'
 
     def get_user_full_name(self , telegram_id):
+        '''
+        :param telegram_id:
+        :return: the employee's last_name and first_name
+        '''
         employees = self.get_all()
         for employee in employees:
             if int(employee["telegram_id"]) == telegram_id:
