@@ -95,6 +95,26 @@ def registerChangedFatherName(message):
 
     sendUser(message)
 
+@bot.callback_query_handler(lambda callback: callback.data == 'change_birth_day')
+def change_new_employee_birth_day(callback):
+    bot.send_message(
+        callback.message.chat.id,
+        'Введите пожалуйста Дату вашего рождения:'
+    )
+
+    bot.register_next_step_handler(
+        callback.message,
+        registerChangedBirthDay
+    )
+
+def registerChangedBirthDay(message):
+    user.birth_day = message.text
+    bot.send_message(
+        message.chat.id,
+        f'Вы успешно поменяли Дату рождения на {user.birth_day}'
+    )
+
+    sendUser(message)
 
 @bot.callback_query_handler(lambda callback: callback.data == 'change_iin')
 def change_new_employee_iin(callback):

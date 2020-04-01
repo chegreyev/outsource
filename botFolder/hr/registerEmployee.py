@@ -6,7 +6,7 @@
 from keyboards import register_employee_markup, change_register_employee , employee_start_message__markup
 from bot import bot, user
 from checks.check import *
-
+from Files.filesFunctions import *
 
 @bot.callback_query_handler(lambda callback: callback.data == 'new_employee_start_message__register')
 def registerNewEmployee(callback):
@@ -27,9 +27,14 @@ def registerName(m):
         user.last_name = name[0]
         user.first_name = name[1]
         user.father_name = name[2]
-        bot.send_message(m.chat.id,
-                         f'Отлично {name[1]}, теперь введите номер ИИН')
-        bot.register_next_step_handler(m, registerIIN)
+        bot.send_message(
+            m.chat.id,
+            f'Отлично {name[1]}, теперь введите дату Вашего рождения\nНапример: 2000-05-19'
+        )
+        bot.register_next_step_handler(
+            m,
+            registerIIN
+        )
     else:
         bot.send_message(
             m.chat.id,
@@ -40,6 +45,27 @@ def registerName(m):
             registerName
         )
 
+def registerBirthDay(m):
+    if checkRegisteredUDVdate(m.text) is True:
+        user.birth_day = m.text
+        bot.send_message(
+            m.chat.id,
+            'Отлично , теперь введите номер ИИН'
+        )
+        bot.register_next_step_handler(
+            m,
+            registerIIN
+        )
+    else:
+        bot.send_message(
+            m.chat.id ,
+            'Вы неверно ввели дату Вашего рождения\nВведите пожалуйста еще раз\nНапример: 2000-05-19'
+        )
+
+        bot.register_next_step_handler(
+            m,
+            registerBirthDay
+        )
 
 def registerIIN(m):
     if checkRegisteredIIN(m.text) is True:
@@ -156,6 +182,28 @@ def registerEmail(m):
 @bot.callback_query_handler(lambda callback: callback.data == 'correct_employee_data')
 def confirm_new_employee(callback):
     user.registerEmployee()
+    bot.send_message(
+        callback.message.chat.id,
+        'Поздравляю, вы успешно зарегестрировались!',
+        reply_markup=employee_start_message__markup
+    )
+
+    # Sending his Confidential dogovor
+    bot.send_document(
+        callback.message.chat.id,
+        data=confidemtial_dogovor(user.returnUserData(callback.message.chat.id))
+    )
+    # Sending his Corporate security
+    bot.send_document(
+        callback.message.chat.id,
+        data=corporate_security(user.returnUserData(callback.message.chat.id))
+    )
+    # Sending his trudovoi dogovor
+    bot.send_document(
+        callback.message.chat.id,
+        data=trudovoi_dogovor(user.returnUserData(callback.message.chat.id))
+    )
+
     hr_emp = user.get_hr()
 
     # Sends HR employee the "new_employee" alert
@@ -169,11 +217,7 @@ def confirm_new_employee(callback):
         callback.message.message_id
     )
 
-    bot.send_message(
-        callback.message.chat.id,
-        'Поздравляю, вы успешно зарегестрировались!',
-        reply_markup=employee_start_message__markup
-    )
+
 
 
 @bot.callback_query_handler(lambda callback: callback.data == 'incorrect_employee_data')
