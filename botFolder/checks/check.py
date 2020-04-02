@@ -12,11 +12,11 @@ def checkRegisteredIIN(text):
 
 
 def checkRegisteredUDVdate(text):
-    if '-' in text:
-        text = text.split('-')
-        if len(text[0]) == 4:
+    if '.' in text:
+        text = text.split('.')
+        if len(text[2]) == 4:
             if len(text[1]) == 2 and int(text[1]) <= 12 and int(text[1]) >= 1:
-                if len(text[2]) == 2 and int(text[2]) >= 1 and int(text[2]) <= 31:
+                if len(text[0]) == 2 and int(text[0]) >= 1 and int(text[0]) <= 31:
                     return True
     return False
 
@@ -32,6 +32,7 @@ def checkRegisteredBankCard(text):
 
     if len(new_text) != 16:
         return False
+
     return True
 
 

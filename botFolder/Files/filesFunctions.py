@@ -18,8 +18,7 @@ def returnUserData(id):
     return None
 
 def confidemtial_dogovor(user):
-    document = DocxTemplate('botFolder/Files/Договор_о_Конфиденциальности.docx')
-    print('hello')
+    document = DocxTemplate('/Users/chegreyev/Development/outsource/botFolder/Files/Договор_о_Конфиденциальности.docx')
     last_name = RichText()
     last_name.add(user['last_name'], bold=True, font='Fira Sans Condensed ExtraLight')
 
@@ -74,12 +73,12 @@ def confidemtial_dogovor(user):
     }
 
     document.render(context)
-    document.save(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Договор_о_Конфиденциальности.docx')
-    doc = open(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Договор_о_Конфиденциальности.docx' , 'rb')
+    document.save(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Договор_о_Конфиденциальности.docx')
+    doc = open(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Договор_о_Конфиденциальности.docx' , 'rb')
     return doc
 
 def corporate_security(user):
-    document = DocxTemplate('Соглашение_о_корпоративной_безопасности.docx')
+    document = DocxTemplate('/Users/chegreyev/Development/outsource/botFolder/Files/Соглашение_о_корпоративной_безопасности.docx')
 
     last_name = RichText()
     last_name.add(user['last_name'], bold=True, font='Fira Sans Condensed ExtraLight')
@@ -135,12 +134,12 @@ def corporate_security(user):
     }
 
     document.render(context)
-    document.save(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Соглашение_о_корпоративной_безопасности.docx')
-    doc = open(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Соглашение_о_корпоративной_безопасности.docx' , 'rb')
+    document.save(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Соглашение_о_корпоративной_безопасности.docx')
+    doc = open(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Соглашение_о_корпоративной_безопасности.docx' , 'rb')
     return doc
 
 def trudovoi_dogovor(user):
-    document = DocxTemplate('Трудовой_договор.docx')
+    document = DocxTemplate('/Users/chegreyev/Development/outsource/botFolder/Files/Трудовой_договор.docx')
 
     last_name = RichText()
     last_name.add(user['last_name'], bold=True, font='Fira Sans Condensed ExtraLight')
@@ -196,8 +195,8 @@ def trudovoi_dogovor(user):
     }
 
     document.render(context)
-    document.save(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Трудовой_договор.docx')
-    doc = open(f'tempFiles/{user["last_name"]}_{user["first_name"]}_Трудовой_договор.docx' , 'rb')
+    document.save(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Трудовой_договор.docx')
+    doc = open(f'/Users/chegreyev/Development/outsource/botFolder/Files/tempFiles/{user["last_name"]}_{user["first_name"]}_Трудовой_договор.docx' , 'rb')
     return doc
 
 

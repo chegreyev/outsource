@@ -8,11 +8,23 @@ from bot import bot, user
 from checks.check import *
 from Files.filesFunctions import *
 
+def getValidatedDate(date):
+    date = date.split('.')
+    validated_date = date[2] + '-' + date[1] + '-' + date[0]
+    return validated_date
+
+def getBirthFromIIN__database(iin):
+    year = '20' + iin[0:2]
+    month = iin[2:4]
+    day = iin[4:6]
+    return year + '-' + month + '-' + day
+
+
 @bot.callback_query_handler(lambda callback: callback.data == 'new_employee_start_message__register')
 def registerNewEmployee(callback):
     bot.send_message(
         callback.message.chat.id,
-        'Мы приступаем к регистрации/введении нового сотрудника в базу данных\nВведите пожалуйста ФИО\nНапример : Быков Андрей Михайлович)'
+        'Мы приступаем к регистрации/введении нового сотрудника в базу данных\nВведите пожалуйста ФИО\nНапример : Быков Андрей Михайлович'
     )
     bot.register_next_step_handler(
         callback.message,
@@ -24,12 +36,12 @@ def registerName(m):
     if checkRegisteredName(m.text) is True:
         user.telegram_id = m.from_user.id
         name = m.text.split(" ")
-        user.last_name = name[0]
-        user.first_name = name[1]
-        user.father_name = name[2]
+        user.last_name = name[0].title()
+        user.first_name = name[1].title()
+        user.father_name = name[2].title()
         bot.send_message(
             m.chat.id,
-            f'Отлично {name[1]}, теперь введите дату Вашего рождения\nНапример: 2000-05-19'
+            f'Отлично {name[1].title()}, теперь введите номер ИИН'
         )
         bot.register_next_step_handler(
             m,
@@ -45,34 +57,16 @@ def registerName(m):
             registerName
         )
 
-def registerBirthDay(m):
-    if checkRegisteredUDVdate(m.text) is True:
-        user.birth_day = m.text
-        bot.send_message(
-            m.chat.id,
-            'Отлично , теперь введите номер ИИН'
-        )
-        bot.register_next_step_handler(
-            m,
-            registerIIN
-        )
-    else:
-        bot.send_message(
-            m.chat.id ,
-            'Вы неверно ввели дату Вашего рождения\nВведите пожалуйста еще раз\nНапример: 2000-05-19'
-        )
-
-        bot.register_next_step_handler(
-            m,
-            registerBirthDay
-        )
-
 def registerIIN(m):
     if checkRegisteredIIN(m.text) is True:
         user.iin = m.text
+        user.birth_day = getBirthFromIIN__database(m.text)
         bot.send_message(m.chat.id,
                          'Хорошо теперь нужно будет ввести данные удовстверения, заранее подготовьте пожалуйста удовстверение\nВведите пожалуйста номер удовстверения')
-        bot.register_next_step_handler(m, registerUDVnumber)
+        bot.register_next_step_handler(
+            m,
+            registerUDVnumber
+        )
     else:
         bot.send_message(
             m.chat.id,
@@ -86,13 +80,13 @@ def registerIIN(m):
 def registerUDVnumber(m):
     user.udv_number = m.text
     bot.send_message(m.chat.id,
-                     'Отлично , теперь введите пожалуйста дату получения удостоверения.\nНапример: 2000-05-19')
+                     'Отлично , теперь введите пожалуйста дату получения удостоверения.\nНапример: 19.05.2000')
     bot.register_next_step_handler(m, registerUDVdate)
 
 
 def registerUDVdate(m):
     if checkRegisteredUDVdate(m.text) is True:
-        user.udv_date = m.text
+        user.udv_date = getValidatedDate(m.text)
         bot.send_message(m.chat.id,
                          'Теперь введите место получения удостворения.\nНапример : МВД РК')
         bot.register_next_step_handler(m, registerUDVplace)
